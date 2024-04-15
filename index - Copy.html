@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <title>Quiz Tracker</title>
+    <!-- Include Material You CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        
+
+
+	#controlPanel {
+        position: absolute; /* Change from fixed to absolute */
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        }
+        .cb {
+            /* height: 5em;
+            width: 1em; */
+        border-radius: 50%;
+        display: flex;
+        padding: 5px 5px;
+        color: rgb(32, 32, 32);
+        text-align: center;
+        vertical-align: middle;
+        align-items: center;
+        justify-content: center;
+        width: 100%; /* Same width */
+        margin-bottom: 10px; /* Gap between buttons */
+        background: #e7edf5;
+        box-shadow: inset 2px 2px 2px #10101024,inset -2px -2px 4px #ffffff92;
+
+                     
+        /* mix-blend-mode: multiply; */
+    
+    }
+        body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto; /* Allow body to expand */
+        min-height: 100vh; /* Minimum height is viewport height */
+        background-color: #E0E5EC; /* Neumorphic background */
+		}
+        #quizTracker {
+            text-align: center;
+            padding: 4em 2em 2em 2em;
+            border-radius: 10px;
+            background: #E0E5EC;
+            max-width: 90vw;
+            
+            box-shadow:  20px 20px 60px #bec3c9, 
+                         -20px -20px 60px #ffffff;
+            color: #333333; /* Dark text color for light mode */
+            position: relative;
+            display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+                    }
+        .embossed {
+            text-shadow: -0.5px -0.5px 0.5px #ecebeb, 0.7px 0.7px 0.7px #000; /* Embossed effect */
+            color: #2f2f2f;
+        }
+		td, th {
+    padding: 10px 30px;
+    
+}
+        .tab {
+            font-family:sans-serif;
+        }
+
+        .btn {
+        font-size: 19px;
+        border-radius: 50px;
+        padding: 25px 30px; /* Taller buttons */
+        color: black;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 20px; /* Centered text */
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 600;
+        font-style: normal;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%; /* Same width */
+        margin-bottom: 10px; /* Gap between buttons */
+        background: #E0E5EC;
+        /* box-shadow:  2px 2px 2px #e2dddd; */
+                     /* -2px -2px 2px #4a4a4a; */
+        box-shadow: inset 4px 4px 4px #2a2a2a6f, -2px -2px 2px #aeacac;
+        /* mix-blend-mode: multiply; */
+        border-color: #333333;
+        border-width: 5vh;
+        text-shadow: -0.05em -0.05em 0.08em #00000089, 0.05em 0.05em 0.1em #e0e0e06b, 2px 2px 10px #ababab63; /* Embossed effect */
+        order: 3;
+    }
+        .btn:focus {
+            background-color: inherit; /* No color change on focus */
+        }
+        .correct {
+            background-color: hsl(90, 60%, 51%); /* More saturated */
+        }
+        .correct:hover {
+            background-color: hsl(90, 60%, 51%); /* Darker on hover */
+            box-shadow: 4px 4px 4px #3a3a3afd, -2px -2px 4px #f4f4f4;
+            font-size: 19.3px;
+        }
+        .incorrect {
+            background-color: hsl(0, 94%, 64%); /* More saturated */
+        }
+        .incorrect:hover {
+            background-color: hsl(0, 94%, 64%); /* Darker on hover */
+            box-shadow: 4px 4px 4px #3a3a3afd, -2px -2px 4px #f4f4f4;
+            font-size: 19.3px;
+        }
+        .not-attempted {
+            background-color: #f7da36; /* More saturated */
+        }
+		
+        .not-attempted:hover {
+            background-color: #f7da36; /* Darker on hover */
+            box-shadow: 4px 4px 4px #3a3a3afd, -2px -2px 4px #f4f4f4;
+            font-size: 19.3px;
+        }
+        #results {
+        position: static;
+            order: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    margin-bottom: 1em;
+        }
+        #controlPanel + h1 {
+    order: 1; /* Display before results */
+    margin-bottom: 0; /* Remove bottom margin */
+}
+        
+@media only screen and (max-width: 600px) {
+            #quizTracker {
+                padding: 4em 1em 1em 1em;
+            }
+			td  {
+        padding: 3px 7px; /* Reduce horizontal padding for small screens */
+            }
+            th {
+                padding: 10px 6px;
+            }
+        }  
+        .btn {
+            font-size: 1em;
+        }
+        .btn:hover {
+            font-size: 1.02em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quizTracker">
+        <div id="controlPanel">
+            <button id="fullScreen" class="waves-effect waves-light  cb"><i class="material-icons">fullscreen</i></button>
+            <button id="resetButton" class="waves-effect waves-light  cb"><i class="material-icons">refresh</i></button>
+            <button id="historyButton" class="waves-effect waves-light  cb"><i class="material-icons">history</i></button>
+            <button id="settingsButton" class="waves-effect waves-light  cb"><i class="material-icons">settings</i></button>
+        </div>
+        <div id="results"></div>
+        <button class="waves-effect waves-light btn correct" onclick="updateCorrectAnswers(); this.blur(); quiz.aFullscreen()">Correct Answer</button>
+        <button class="waves-effect waves-light btn incorrect" onclick="updateIncorrectAnswers(); this.blur(); quiz.aFullscreen()">Incorrect Answer</button>
+        <button class="waves-effect waves-light btn not-attempted" onclick="updateNotAttempted(); this.blur(); quiz.aFullscreen()">Not Attempted</button>
+    </div>
+	
+
+		
+    <script src="quizTracker.js"></script>
+</body>
+</html>
