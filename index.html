@@ -9,155 +9,156 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        /* Set base font size for converting px to rem */
+        html {
+            font-size: 16px; /* Assuming the browser default is 16px */
+        }
+        @media only screen and (max-width: 1100px) {
+            html {
+                font-size: 35px;
+            }
+        }
+        @media only screen and (max-width: 800px) {
+            html {
+                font-size: 30px;
+            }
+        }
         
 
-
-	#controlPanel {
-        position: absolute; /* Change from fixed to absolute */
-        top: 10px;
-        right: 10px;
-        display: flex;
-        gap: 10px;
-        align-items: center;
+        /* Now we can use rem instead of px */
+        #controlPanel {
+            position: absolute;
+            top: 0.625rem;
+            right: 0.625rem;
+            display: flex;
+            gap: 0.625rem;
+            align-items: center;
         }
         .cb {
-            /* height: 5em;
-            width: 1em; */
-        border-radius: 50%;
-        display: flex;
-        padding: 5px 5px;
-        color: rgb(32, 32, 32);
-        text-align: center;
-        vertical-align: middle;
-        align-items: center;
-        justify-content: center;
-        width: 100%; /* Same width */
-        margin-bottom: 10px; /* Gap between buttons */
-        background: #e7edf5;
-        box-shadow: inset 2px 2px 2px #10101024,inset -2px -2px 4px #ffffff92;
-
-                     
-        /* mix-blend-mode: multiply; */
-    
-    }
+            border-radius: 50%;
+            display: flex;
+            padding: 0.4rem 0.4rem;
+            color: rgb(32, 32, 32);
+            text-align: center;
+            vertical-align: middle;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 0.625rem;
+            background: #e7edf5;
+            box-shadow: inset 0.125rem 0.125rem 0.125rem #10101024,inset -0.125rem -0.125rem 0.25rem #ffffff92;
+        }
         body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: auto; /* Allow body to expand */
-        min-height: 100vh; /* Minimum height is viewport height */
-        background-color: #E0E5EC; /* Neumorphic background */
-		}
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            min-height: 100vh;
+            background-color: #E0E5EC;
+        }
         #quizTracker {
             text-align: center;
-            padding: 4em 2em 2em 2em;
-            border-radius: 10px;
+            padding: 2.5rem 1.25rem 1.25rem 1.25rem;
+            border-radius: 0.625rem;
             background: #E0E5EC;
             max-width: 90vw;
-            
-            box-shadow:  20px 20px 60px #bec3c9, 
-                         -20px -20px 60px #ffffff;
-            color: #333333; /* Dark text color for light mode */
+            box-shadow:  1.25rem 1.25rem 3.75rem #bec3c9, 
+                         -1.25rem -1.25rem 3.75rem #ffffff;
+            color: #333333;
             position: relative;
-            display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center children horizontally */
-                    }
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .embossed {
-            text-shadow: -0.5px -0.5px 0.5px #ecebeb, 0.7px 0.7px 0.7px #000; /* Embossed effect */
+            text-shadow: -0.03125rem -0.03125rem 0.03125rem #ecebeb, 0.04375rem 0.04375rem 0.04375rem #000;
             color: #2f2f2f;
         }
-		td, th {
-    padding: 10px 30px;
-    
-}
+        td, th {
+            padding: 0.625rem 1.875rem;
+        }
         .tab {
             font-family:sans-serif;
         }
-
         .btn {
-        font-size: 19px;
-        border-radius: 50px;
-        padding: 25px 30px; /* Taller buttons */
-        color: black;
-        text-align: center;
-        vertical-align: middle;
-        line-height: 20px; /* Centered text */
-        font-family: "Montserrat", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 600;
-        font-style: normal;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%; /* Same width */
-        margin-bottom: 10px; /* Gap between buttons */
-        background: #E0E5EC;
-        /* box-shadow:  2px 2px 2px #e2dddd; */
-                     /* -2px -2px 2px #4a4a4a; */
-        box-shadow: inset 4px 4px 4px #2a2a2a6f, -2px -2px 2px #aeacac;
-        /* mix-blend-mode: multiply; */
-        border-color: #333333;
-        border-width: 5vh;
-        text-shadow: -0.05em -0.05em 0.08em #00000089, 0.05em 0.05em 0.1em #e0e0e06b, 2px 2px 10px #ababab63; /* Embossed effect */
-        order: 3;
-    }
+            font-size: 1.1875rem;
+            border-radius: 3.125rem;
+            padding: 1.5625rem 1.875rem;
+            color: black;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 1.25rem;
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 0.625rem;
+            background: #E0E5EC;
+            box-shadow: inset 0.25rem 0.25rem 0.25rem #2a2a2a6f, -0.125rem -0.125rem 0.125rem #aeacac;
+            border-color: #333333;
+            border-width: 5vh;
+            text-shadow: -0.003125rem -0.003125rem 0.005rem #00000089, 0.003125rem 0.003125rem 0.00625rem #e0e0e06b, 0.125rem 0.125rem 0.625rem #ababab63;
+            order: 3;
+        }
         .btn:focus {
-            background-color: inherit; /* No color change on focus */
+            background-color: inherit;
         }
         .correct {
-            background-color: hsl(90, 60%, 51%); /* More saturated */
+            background-color: hsl(90, 60%, 51%);
         }
         .correct:hover {
-            background-color: hsl(90, 60%, 51%); /* Darker on hover */
-            box-shadow: 4px 4px 4px #3a3a3afd, -2px -2px 4px #f4f4f4;
-            font-size: 19.3px;
+            background-color: hsl(90, 60%, 51%);
+            box-shadow: 0.25rem 0.25rem 0.25rem #3a3a3afd, -0.125rem -0.125rem 0.25rem #f4f4f4;
+            font-size: 1.20625rem;
         }
         .incorrect {
-            background-color: hsl(0, 94%, 64%); /* More saturated */
+            background-color: hsl(0, 94%, 64%);
         }
         .incorrect:hover {
-            background-color: hsl(0, 94%, 64%); /* Darker on hover */
-            box-shadow: 4px 4px 4px #3a3a3afd, -2px -2px 4px #f4f4f4;
-            font-size: 19.3px;
+            background-color: hsl(0, 94%, 64%);
+            box-shadow: 0.25rem 0.25rem 0.25rem #3a3a3afd, -0.125rem -0.125rem 0.25rem #f4f4f4;
+            font-size: 1.20625rem;
         }
         .not-attempted {
-            background-color: #f7da36; /* More saturated */
+            background-color: #f7da36;
         }
-		
         .not-attempted:hover {
-            background-color: #f7da36; /* Darker on hover */
-            box-shadow: 4px 4px 4px #3a3a3afd, -2px -2px 4px #f4f4f4;
-            font-size: 19.3px;
+            background-color: #f7da36;
+            box-shadow: 0.25rem 0.25rem 0.25rem #3a3a3afd, -0.125rem -0.125rem 0.25rem #f4f4f4;
+            font-size: 1.20625rem;
         }
         #results {
-        position: static;
+            position: static;
             order: 1;
-    overflow-y: auto;
-    overflow-x: auto;
-    margin-bottom: 1em;
-        }
+            overflow-y: auto;
+            overflow-x: auto;
+            margin-bottom: 1em;
+            font-size: 1.1em;
+                }
         #controlPanel + h1 {
-    order: 1; /* Display before results */
-    margin-bottom: 0; /* Remove bottom margin */
-}
-        
-@media only screen and (max-width: 600px) {
+            order: 1;
+            margin-bottom: 0;
+        }
+        @media only screen and (max-width: 50rem) {
             #quizTracker {
-                padding: 4em 1em 1em 1em;
+                padding: 2.5rem 0.625rem 0.625rem 0.625rem;
             }
-			td  {
-        padding: 3px 7px; /* Reduce horizontal padding for small screens */
+            td  {
+                padding: 0.1875rem 0.4375rem;
             }
             th {
-                padding: 10px 6px;
+                padding: 0.625rem 0.375rem;
             }
         }  
         .btn {
-            font-size: 1em;
+            font-size: 1rem;
         }
         .btn:hover {
-            font-size: 1.02em;
+            font-size: 1.0125rem;
         }
     </style>
 </head>
