@@ -147,7 +147,7 @@ class QuizTracker {
         Negative Marks: ${this.calculate_negative_marks()}\n
         Total Marks: ${total_marks}/${max_marks}\n
         Percentage: ${percentage.toFixed(2)}%\n
-        If None Were Incorrect: ${this.calculate_positive_marks()}/${max_marks}\n
+        If There Was No Negative Marking: ${this.calculate_positive_marks()}/${max_marks}\n
         Nonnegative Percentage: ${nonnegative_percentage.toFixed(2)}%\n`;
 
     let blob = new Blob([resultsText], {type: "text/plain;charset=utf-8"});
@@ -163,7 +163,7 @@ class QuizTracker {
                 <tr><th colspan="3" class="embossed">Total Marks</th></tr>
                 <tr><td colspan="2">${total_marks}/${max_marks}</td></tr>
                 <tr><td colspan="2">${percentage.toFixed(2)}%</td></tr>
-                <tr><th colspan="3" class="embossed">If None Were Incorrect</th></tr>
+                <tr><th colspan="3" class="embossed">If There Was No Negative Marking</th></tr>
                 <tr><td colspan="2">${this.calculate_positive_marks()}/${max_marks}</td></tr>
                 <tr><td colspan="2">${nonnegative_percentage.toFixed(2)}%</td></tr>
         
