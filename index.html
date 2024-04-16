@@ -13,6 +13,11 @@
         html {
             font-size: 16px; /* Assuming the browser default is 16px */
         }
+        @media only screen and (max-width: 1500px) {
+            html {
+                font-size: 50px;
+            }
+        }
         @media only screen and (max-width: 1100px) {
             html {
                 font-size: 35px;
@@ -23,6 +28,7 @@
                 font-size: 28px;
             }
         }
+        
         
 
         /* Now we can use rem instead of px */
@@ -37,7 +43,7 @@
         .cb {
             border-radius: 50%;
             display: flex;
-            padding: 0.4rem 0.4rem;
+            padding: 0.5rem 0.5rem;
             color: rgb(32, 32, 32);
             text-align: center;
             vertical-align: middle;
@@ -58,17 +64,20 @@
         }
         #quizTracker {
             text-align: center;
-            padding: 2.5rem 1.25rem 1.25rem 1.25rem;
+            padding: 3rem 1.25rem 1.25rem 1.25rem;
             border-radius: 0.625rem;
             background: #E0E5EC;
             max-width: 90vw;
             box-shadow:  1.25rem 1.25rem 3.75rem #bec3c9, 
                          -1.25rem -1.25rem 3.75rem #ffffff;
+                         
+                         
             color: #333333;
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* border: 2px solid black; */
         }
         .embossed {
             text-shadow: -0.03125rem -0.03125rem 0.03125rem #ecebeb, 0.04375rem 0.04375rem 0.04375rem #000;
@@ -143,9 +152,9 @@
             order: 1;
             margin-bottom: 0;
         }
-        @media only screen and (max-width: 50rem) {
+        @media only screen and (max-width: 1100px) {
             #quizTracker {
-                padding: 2.5rem 0.625rem 0.625rem 0.625rem;
+                padding: 3rem 0.625rem 0.625rem 0.625rem;
             }
             td  {
                 padding: 0.1875rem 0.4375rem;
