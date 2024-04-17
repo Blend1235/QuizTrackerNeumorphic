@@ -251,11 +251,56 @@
         .btn:hover {
             font-size: 1.0125rem;
         }
+        
+        
+        #infoBtnc {
+            height: 2.5rem;
+            width: 3.5rem;
+            color: hsl(90, 60%, 51%);
+            position: absolute;
+            /* background-color: hsl(90, 60%, 51%); */
+            top: 0rem;
+            left: 0rem;
+            border-radius: 1.6rem;
+            margin: 0.6rem;
+            display: none;
+            font-size: 1.2rem;
+            box-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.59), -0.2rem -0.2rem 0.3rem rgba(255, 255, 255, 0.5);
+            text-align: center;
+            vertical-align: middle;
+            line-height: 2.5rem;
+            text-shadow: 0.07rem 0.07rem 0.1rem #00000061;
+
+            
+        }
+        #infoBtni {
+            height: 2.5rem;
+            width: 3.5rem;
+            color: hsl(0, 94%, 64%);
+            position: absolute;
+            /* background-color: hsl(0, 94%, 64%); */
+            top: 0rem;
+            left: 4rem;
+            border-radius: 1.6rem;
+            margin: 0.6rem;
+            display: none;
+            font-size: 1.2rem;
+            box-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.59), -0.2rem -0.2rem 0.3rem rgba(255, 255, 255, 0.5);
+            text-align: center;
+            vertical-align: middle;
+            line-height: 2.5rem;
+            text-shadow: 0.07rem 0.07rem 0.1rem #00000061;
+
+        }
     </style>
 </head>
 <body>
 
     <div id="quizTracker">
+        <div class="infoBtn">
+            <div id="infoBtnc"></div>
+            <div id="infoBtni"></div>
+    </div>
         <div id="controlPanel">
             <button id="answerMenuButton" class="waves-effect waves-light  cb"><i class="material-icons">menu</i></button>
             <button id="fullScreen" class="waves-effect waves-light  cb"><i class="material-icons">fullscreen</i></button>

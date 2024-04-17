@@ -184,14 +184,16 @@ transparentDiv.style.display = 'none';
             this.openFullscreen();
             document.getElementById('ansCanal').style.display = 'block';
             fullscr = 1;
-            
-            
+            this.updinf()
+            document.getElementById('infoBtnc').style.display = 'block';
+            document.getElementById('infoBtni').style.display = 'block';
         }
 
         
     }
     
     constructor() {
+       
         this.questions_attempted = 0;
         this.questions_not_attempted = 0;
         this.correct_answers = 0;
@@ -200,6 +202,8 @@ transparentDiv.style.display = 'none';
 		this.history = JSON.parse(localStorage.getItem('quizHistory')) || [];
         this.correct_answer_value = Number(localStorage.getItem("correct_answer_value")) || 5; // default value
         this.incorrect_answer_value = Number(localStorage.getItem("incorrect_answer_value")) || -1; // default value
+        let quizTracker = document.getElementById('quizTracker');
+
     }
     setCookie(cname, cvalue, exdays) {
         var d = new Date();
@@ -291,6 +295,16 @@ transparentDiv.style.display = 'none';
     calculate_max_marks() {
         return (this.questions_attempted + this.questions_not_attempted) * this.correct_answer_value;
     }
+    updinf(){
+
+        // Get the div elements
+        let infoBtnc = document.getElementById('infoBtnc');
+        let infoBtni = document.getElementById('infoBtni');
+        
+        // Update the content of the div elements
+        infoBtnc.textContent = '+' + quiz.correct_answer_value;
+        infoBtni.textContent = quiz.incorrect_answer_value;
+        }
     calculate_percentage() {
         return (this.calculate_total_marks() / this.calculate_max_marks()) * 100;
     }
@@ -383,13 +397,7 @@ document.getElementById('answerMenuButton').addEventListener('click', () => {
 
 //     document.getElementById('fullAnswerMenu').style.display = 'none';
 // });
-function keyListener(event) {
-    event = event || window.event; // Capture the event
-    var key = event.key || event.which || event.keyCode; // Find the key that was pressed
-    if (key === 187) { // Check if the key is 'T'
-        updateCorrectAnswers(); // Execute your desired task
-    }
-  }
+
 document.getElementById('fullScreen').addEventListener('click', () => quiz.goFullscreen());
 document.getElementById('resetButton').addEventListener('click', () => quiz.reset());
 document.getElementById('historyButton').addEventListener('click', () => quiz.display_history());
@@ -400,6 +408,7 @@ document.getElementById('settingsButton').addEventListener('click', () => {
     if (correct_value !== null && incorrect_value !== null) {
         quiz.correct_answer_value = Number(correct_value);
         quiz.incorrect_answer_value = Number(incorrect_value);
+        quiz.updinf();
         localStorage.setItem("correct_answer_value", correct_value);
         localStorage.setItem("incorrect_answer_value", incorrect_value);
     }
