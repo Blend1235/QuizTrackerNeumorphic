@@ -16,18 +16,101 @@
                 font-size: 50px;
             }
         }
-        @media only screen and (max-width: 1100px) {
+        @media  screen and (max-width: 1000px) {
             html {
-                font-size: 35px;
+                font-size: 13px;
             }
         }
-        @media only screen and (max-width: 800px) {
-            html {
-                font-size: 15px;
-            }
+    
+        /* #answerMenu {
+            display: block;
+        } */
+        .fullAnswerMenu::-webkit-scrollbar {
+    display: none;  /* for Chrome, Safari, and Opera */
+}
+        
+        .ansButton {
+            font-size: 1.1rem;
+            text-shadow: 0.07rem 0.07rem 0.1rem #000000af;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: inline-block;
+            margin: 0.5rem;
+            border-radius: 50%;
+            line-height: 2.5rem;
+            text-align: center;
+            box-shadow: 0.2rem 0.2rem 0.2rem #00000063, -0.2rem -0.2rem 0.2rem #ffffffa7;
+        }
+        #fullAnswerMenu Button {
+            display: inline-block;
+    padding: 0.6rem 0.6rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: 8px;
+    border: none;
+    border-radius: 2rem;
+    background-color: #dadada;
+    color: rgb(88, 88, 88);
+    text-align: center;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    line-height: 1.2rem;
+    box-shadow: 0.2rem 0.2rem 0.2rem #00000063, -0.2rem -0.2rem 0.2rem #ffffffae;
+}
+
+        #ansCanal {
+            /* display: none; */
+            background-color: inherit;
+            padding-top: 0.2rem;
+            padding-bottom: 0.2rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: 3rem;
+            margin: 0.5rem;
+            margin-top: 1rem;
+            box-shadow: inset 0.2rem 0.2rem 0.5rem #0000009c, -0.1rem -0.1rem 0.2rem #00000077
         }
         
-        
+        /* Add styles for the "View All" button */
+#answerMenu button {
+    display: inline-block;
+    padding: 0.6rem 0.6rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: 8px;
+    border: none;
+    border-radius: 2rem;
+    background-color: #dadada;
+    color: rgb(88, 88, 88);
+    text-align: center;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    line-height: 1.2rem;
+    box-shadow: 0.2rem 0.2rem 0.2rem #00000063, -0.2rem -0.2rem 0.2rem #ffffffae;
+
+}
+
+#fullAnswerMenu {
+    height: 100%; /* Adjust this value according to your needs */
+    overflow-y: auto; /* This will add a scrollbar if the content exceeds the height */
+    padding: 1.1rem;
+    box-shadow: -0.3rem -0.3rem 0.3rem rgba(0, 0, 0, 0.404),inset -0.3rem -0.3rem 0.3rem rgba(255, 255, 255, 0.742) ;
+    border-radius: 3rem;
+    margin-bottom: 1rem;
+    width: 90%;
+}
+
+#fullAnswerMenu::-webkit-scrollbar {
+    display: none;
+}
+#answerMenu button:hover {
+    background-color: white;
+    color: black;
+
+}
+
 
         /* Now we can use rem instead of px */
         #controlPanel {
@@ -41,7 +124,7 @@
         .cb {
             border-radius: 50%;
             display: flex;
-            padding: 0.5rem 0.5rem;
+            padding: 0.23rem 0.23rem;
             color: rgb(32, 32, 32);
             text-align: center;
             vertical-align: middle;
@@ -115,7 +198,7 @@
             background-color: inherit;
         }
         .correct {
-            background-color: hsl(90, 60%, 51%);
+            background-color: #82cd37;
         }
         .correct:hover {
             background-color: hsl(90, 60%, 51%);
@@ -139,17 +222,18 @@
             font-size: 1.20625rem;
         }
         #results {
-            position: static;
+            position: relative;
             order: 1;
             overflow-y: auto;
             overflow-x: auto;
             margin-bottom: 1em;
+            margin-top: 0rem;
             font-size: 1.1em;
                 }
-        #controlPanel + h1 {
+        /* #controlPanel + h1 {
             order: 1;
             margin-bottom: 0;
-        }
+        } */
         @media only screen and (max-width: 1100px) {
             #quizTracker {
                 padding: 3rem 0.625rem 0.625rem 0.625rem;
@@ -173,10 +257,16 @@
 
     <div id="quizTracker">
         <div id="controlPanel">
+            <button id="answerMenuButton" class="waves-effect waves-light  cb"><i class="material-icons">menu</i></button>
             <button id="fullScreen" class="waves-effect waves-light  cb"><i class="material-icons">fullscreen</i></button>
             <button id="resetButton" class="waves-effect waves-light  cb"><i class="material-icons">refresh</i></button>
             <button id="historyButton" class="waves-effect waves-light  cb"><i class="material-icons">history</i></button>
             <button id="settingsButton" class="waves-effect waves-light  cb"><i class="material-icons">settings</i></button>
+        </div>
+        <div id="ansCanal" style="display: none;">
+        <div id="answerMenu" style="display: block;"></div>
+        </div>
+        <div id="fullAnswerMenu" style="display: none; position: relative;"> 
         </div>
         <div id="results"></div>
         <button class="waves-effect waves-light btn correct" onclick="updateCorrectAnswers(); this.blur(); quiz.aFullscreen()">Correct Answer</button>
