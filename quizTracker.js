@@ -383,6 +383,13 @@ document.getElementById('answerMenuButton').addEventListener('click', () => {
 
 //     document.getElementById('fullAnswerMenu').style.display = 'none';
 // });
+function keyListener(event) {
+    event = event || window.event; // Capture the event
+    var key = event.key || event.which || event.keyCode; // Find the key that was pressed
+    if (key === 187) { // Check if the key is 'T'
+        updateCorrectAnswers(); // Execute your desired task
+    }
+  }
 document.getElementById('fullScreen').addEventListener('click', () => quiz.goFullscreen());
 document.getElementById('resetButton').addEventListener('click', () => quiz.reset());
 document.getElementById('historyButton').addEventListener('click', () => quiz.display_history());
@@ -397,3 +404,26 @@ document.getElementById('settingsButton').addEventListener('click', () => {
         localStorage.setItem("incorrect_answer_value", incorrect_value);
     }
 });
+window.addEventListener('keydown', function(event) {
+    switch (event.key) {
+        case '+':
+            updateCorrectAnswers(); this.blur(); quiz.aFullscreen();
+            break;
+        case '-':
+            updateIncorrectAnswers(); this.blur(); quiz.aFullscreen();
+            break;
+        case 'Enter':
+            updateNotAttempted(); this.blur(); quiz.aFullscreen();
+            break;
+            case ',':
+                updateCorrectAnswers(); this.blur(); quiz.aFullscreen();
+                break;
+            case '.':
+                updateIncorrectAnswers(); this.blur(); quiz.aFullscreen();
+                break;
+            case '/':
+                updateNotAttempted(); this.blur(); quiz.aFullscreen();
+                break;
+    }
+});
+
