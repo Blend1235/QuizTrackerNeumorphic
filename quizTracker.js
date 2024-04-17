@@ -75,7 +75,8 @@ quizTracker.style.height = currentHeight + 'px';
 quizTracker.style.width = currentWidth + 'px';
 
 
-
+document.getElementById('infoBtnc').style.display = 'none';
+document.getElementById('infoBtni').style.display = 'none';
         let menu = document.getElementById('fullAnswerMenu');
         menu.innerHTML = '';
         for (let i = 0; i < this.user_inputs.length; i++) {
@@ -155,7 +156,8 @@ transparentDiv.style.display = 'block';
     // Add a new method to hide the full answer menu
     hideFullAnswerMenu() {
         console.log("hideFullAnswerMenu called");
-
+        document.getElementById('infoBtnc').style.display = 'block';
+            document.getElementById('infoBtni').style.display = 'block';
         let menu = document.getElementById('fullAnswerMenu');
         menu.style.display = 'none';
     
