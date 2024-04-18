@@ -486,6 +486,11 @@ document.getElementById('infoBtnc').addEventListener('click', () => {
     if (correct_value !== null) {
         quiz.correct_answer_value = Number(correct_value);
         quiz.updinf();
+        quiz.calculate_positive_marks();
+        quiz.calculate_total_marks();
+        quiz.calculate_percentage();
+        quiz.calculate_nonnegative_percentage();
+        quiz.display_results();
         localStorage.setItem("correct_answer_value", correct_value);
     }
 });
@@ -494,6 +499,11 @@ document.getElementById('infoBtni').addEventListener('click', () => {
     if (incorrect_value !== null) {
         quiz.incorrect_answer_value = Number(incorrect_value);
         quiz.updinf();
+        quiz.calculate_positive_marks();
+        quiz.calculate_total_marks();
+        quiz.calculate_percentage();
+        quiz.calculate_nonnegative_percentage();
+        quiz.display_results();
         localStorage.setItem("incorrect_answer_value", incorrect_value);
     }
 });
@@ -517,6 +527,10 @@ document.getElementById('hideResult').addEventListener('click', () => {
         inputbuttons.style.marginTop='4rem';
         viewalldip = viewall.style.display;
         viewall.style.display='none';
+        var textElement = document.querySelector('.rotatedtext');
+        textElement.style.transform = 'rotate(180deg)';
+
+
     
 
     } else {
@@ -534,9 +548,11 @@ document.getElementById('hideResult').addEventListener('click', () => {
         natmbtn.style.fontSize='';
         viewall.style.display=viewalldip;
         quiz.updateAnswerMenu();
+        var textElement = document.querySelector('.rotatedtext');
+        textElement.style.transform = 'rotate(0deg)';
     
     }
-}
+    }
 );
 document.getElementById('undoButton').addEventListener('click', () => quiz.undo());
 document.getElementById('fullScreen').addEventListener('click', () => quiz.goFullscreen());
