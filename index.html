@@ -28,6 +28,87 @@
         .fullAnswerMenu::-webkit-scrollbar {
     display: none;  /* for Chrome, Safari, and Opera */
 }
+
+    #inputbuttons {
+        width: 100%;
+        margin-top: 1rem;
+        order: 4;
+        display: flex;
+        flex-direction: column;
+        /* gap: 2rem; */
+
+    }
+
+    .mainHeading {
+        color: rgba(0, 0, 0, 0);
+    }
+    #qResHead {
+        font-size: 1.1em;
+        font-weight: 700;
+    }
+    #headBar {
+        display: none;
+        position: absolute;
+        top: 8.7rem;
+        /* right: 1rem; */
+        left: 0rem;
+        height: 3rem;
+        /* display:flex; */
+            /* gap: 0.625rem; */
+            align-items: center;
+            margin-left: 1rem ;
+            width: 100%;
+            vertical-align: middle;
+    }
+    #undoButton {
+        /* position: relative;
+        right: 1rem; */
+        position: absolute;
+        right: 2.5rem;
+        width: 3rem;
+        height: 1.6rem;
+        border-radius: 2rem;
+        vertical-align: middle;
+        /* background-color: rgb(219, 219, 219); */
+        z-index: 99;
+        line-height: 1.6rem;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 0.8rem;
+        text-shadow: 0.07rem 0.07rem 0.1rem #0000005f;
+        box-shadow: 0.2rem 0.2rem 0.2rem #00000063, -0.2rem -0.2rem 0.2rem #ffffffa7;
+        -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+        cursor: pointer;
+
+    }
+    #hideResult {
+        position: absolute;
+        left: 6.8rem;
+        width: 1.7rem;
+        height: 1.4rem;
+        border-radius: 0.2rem;
+        /* background-color: rgb(219, 219, 219); */
+        z-index: 99;
+        /* line-height: 0.5rem; */
+        text-align: center;
+        vertical-align: middle;
+        /* font-size: 0.5rem; */
+        text-shadow: 0.07rem 0.07rem 0.1rem #0000005f;
+        box-shadow: 0.2rem 0.2rem 0.2rem #00000063, -0.2rem -0.2rem 0.2rem #ffffffa7;
+        -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+        cursor: pointer;
+
+    }
         
         .ansButton {
             font-size: 1.1rem;
@@ -68,7 +149,7 @@
             padding-right: 1rem;
             border-radius: 3rem;
             margin: 0.5rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             box-shadow: inset 0.2rem 0.2rem 0.5rem #0000009c, -0.1rem -0.1rem 0.2rem #00000077
         }
         
@@ -105,11 +186,11 @@
 #fullAnswerMenu::-webkit-scrollbar {
     display: none;
 }
-#answerMenu button:hover {
+/* #answerMenu button:hover {
     background-color: white;
     color: black;
 
-}
+} */
 
 
         /* Now we can use rem instead of px */
@@ -142,6 +223,13 @@
             height: auto;
             min-height: 100vh;
             background-color: #E0E5EC;
+            -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
         }
         #quizTracker {
             text-align: center;
@@ -292,6 +380,7 @@
             text-shadow: 0.07rem 0.07rem 0.1rem #00000061;
 
         }
+        
     </style>
 </head>
 <body>
@@ -313,10 +402,17 @@
         </div>
         <div id="fullAnswerMenu" style="display: none; position: relative;"> 
         </div>
+        <div id="headBar">
+            <div id="qResHead" class="embossed"><span>Quiz Results</span></div>
+        <div id="hideResult"><i class="material-icons">expand_less</i></div>
+        <div id="undoButton"><span>Undo</span></div>
+        </div>
         <div id="results"></div>
-        <button class="waves-effect waves-light btn correct" onclick="updateCorrectAnswers(); this.blur(); quiz.aFullscreen()">Correct Answer</button>
-        <button class="waves-effect waves-light btn incorrect" onclick="updateIncorrectAnswers(); this.blur(); quiz.aFullscreen()">Incorrect Answer</button>
-        <button class="waves-effect waves-light btn not-attempted" onclick="updateNotAttempted(); this.blur(); quiz.aFullscreen()">Not Attempted</button>
+        <div id="inputbuttons">
+        <button id="crtbtn" class="waves-effect waves-light btn correct" onclick="updateCorrectAnswers(); this.blur(); quiz.aFullscreen()">Correct Answer</button>
+        <button id="icrtbtn" class="waves-effect waves-light btn incorrect" onclick="updateIncorrectAnswers(); this.blur(); quiz.aFullscreen()">Incorrect Answer</button>
+        <button id="natmbtn" class="waves-effect waves-light btn not-attempted" onclick="updateNotAttempted(); this.blur(); quiz.aFullscreen()">Not Attempted</button>
+        </div>
     </div>
 	
 

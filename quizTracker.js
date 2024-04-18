@@ -1,8 +1,66 @@
 let fullscr = 0;
+let hideresult = 0;
+let viewall;
+let viewalldip;
 
 class QuizTracker {
+    undo() {
+        // Check if there are any inputs to undo
+        if (this.user_inputs.length === 0) {
+            console.log("No inputs to undo");
+            return;
+        }
     
-	
+        // Get the last input
+        let lastInput = this.user_inputs.pop();
+    
+        // Adjust the counters based on the last input
+        switch (lastInput) {
+            case '+':
+                this.correct_answers -= 1;
+                this.questions_attempted -= 1;
+                break;
+            case '-':
+                this.incorrect_answers -= 1;
+                this.questions_attempted -= 1;
+                break;
+            case '.':
+                this.questions_not_attempted -= 1;
+                break;
+        }
+    
+        // Update the display
+        this.display_results();
+        this.updateAnswerMenu();
+        if (document.getElementById('fullAnswerMenu').style.display === 'block') {
+            quiz.displayFullAnswerMenu();
+        }
+    }
+    
+    
+	async requestWakeLock() {
+        try {
+            this.wakeLock = await navigator.wakeLock.request('screen');
+            console.log('Wake Lock is active');
+            this.wakeLock.addEventListener('release', () => {
+                console.log('Wake Lock was released');
+            });
+        } catch (err) {
+            console.error(`${err.name}, ${err.message}`);
+        }
+    }
+    closeFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            // For Safari
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            // For IE11
+            document.msExitFullscreen();
+        }
+    }
+    
 	openFullscreen() {
         console.log("openFullscreen called");
         let elem = document.documentElement;
@@ -51,12 +109,16 @@ class QuizTracker {
             menu.appendChild(circle);
             circle.classList.add('ansButton');
         }
+        
+        if (hideresult===0){
         // Add a "View All" button at the end
         let viewAllButton = document.createElement('button');
         viewAllButton.textContent = 'View All';
         viewAllButton.addEventListener('click', () => this.displayFullAnswerMenu());
         menu.appendChild(viewAllButton);
+        viewall = viewAllButton;
         // viewAllButton.classList.add(viewAllButton);
+        }
     }
 
 
@@ -64,7 +126,7 @@ class QuizTracker {
     // Add a new method to display all the circles in a new blank menu
     displayFullAnswerMenu() {
         console.log("displayFullAnswerMenu called");
-        
+                
         // When the results are ready to be displayed
 var quizTracker = document.getElementById('quizTracker');
 var currentHeight = quizTracker.offsetHeight;
@@ -74,6 +136,8 @@ var currentWidth = quizTracker.offsetWidth;
 quizTracker.style.height = currentHeight + 'px';
 quizTracker.style.width = currentWidth + 'px';
 
+
+document.getElementById('headBar').style.display = 'none';
 
 document.getElementById('infoBtnc').style.display = 'none';
 document.getElementById('infoBtni').style.display = 'none';
@@ -148,7 +212,8 @@ transparentDiv.style.borderRadius = '3rem';
 transparentDiv.style.mixBlendMode = 'multiply';
 transparentDiv.style.display = 'block';
 
-    
+        
+
     }
     
     
@@ -168,16 +233,23 @@ transparentDiv.style.display = 'block';
         document.getElementById('ansCanal').style.display = 'block';
 
         document.getElementById('results').style.display = 'block';
-        // Set the height to the current height
-quizTracker.style.height = '';
-quizTracker.style.width = '';
+        // Set the height to the current heigh
+        var quizTracker = document.getElementById('quizTracker');
+        quizTracker.style.height = '';
+        quizTracker.style.width = '';
 transparentDiv.style.display = 'none';
+document.getElementById('headBar').style.display = 'flex';
+
 
     }
     goFullscreen() {
         console.log("goFullscreen called");
-
-        this.openFullscreen();
+        if (document.fullscreenElement != null) {
+            this.closeFullscreen();
+        } else {
+            this.openFullscreen();
+        }
+        
     }
     aFullscreen() {
         console.log("aFullscreen called");
@@ -189,6 +261,7 @@ transparentDiv.style.display = 'none';
             this.updinf()
             document.getElementById('infoBtnc').style.display = 'block';
             document.getElementById('infoBtni').style.display = 'block';
+            document.getElementById('headBar').style.display = 'flex';
         }
 
         
@@ -304,8 +377,17 @@ transparentDiv.style.display = 'none';
         let infoBtni = document.getElementById('infoBtni');
         
         // Update the content of the div elements
-        infoBtnc.textContent = '+' + quiz.correct_answer_value;
+        if (quiz.correct_answer_value > 0) {
+            infoBtnc.textContent = '+' + quiz.correct_answer_value;
+        } else {
+        infoBtnc.textContent = quiz.correct_answer_value;
+        }
+        if (quiz.incorrect_answer_value > 0) {
+            infoBtni.textContent = '+' + quiz.incorrect_answer_value;
+        } else {
         infoBtni.textContent = quiz.incorrect_answer_value;
+        }
+
         }
     calculate_percentage() {
         return (this.calculate_total_marks() / this.calculate_max_marks()) * 100;
@@ -338,7 +420,7 @@ transparentDiv.style.display = 'none';
     document.getElementById('results').innerHTML = `
         <div id="tableWrapper" class="tab">
             <table>
-                <tr><th colspan="3" class="embossed">Quiz Results</th></tr>
+                <tr><th colspan="3" class="mainHeading">Hidden Heading</th></tr>
                 <tr><td>Questions Attempted:</td><td>${this.questions_attempted}</td><td>Questions Not Attempted:</td><td>${this.questions_not_attempted}</td></tr>
                 <tr><td>Correct Answers:</td><td>${this.correct_answers}</td><td>Incorrect Answers:</td><td>${this.incorrect_answers}</td></tr>
                 <tr><td>Positive Marks:</td><td>${this.calculate_positive_marks()}</td><td>Negative Marks:</td><td>${this.calculate_negative_marks()}</td></tr>
@@ -399,7 +481,64 @@ document.getElementById('answerMenuButton').addEventListener('click', () => {
 
 //     document.getElementById('fullAnswerMenu').style.display = 'none';
 // });
+document.getElementById('infoBtnc').addEventListener('click', () => {
+    let correct_value = prompt("Enter the value for a correct answer:", quiz.correct_answer_value);
+    if (correct_value !== null) {
+        quiz.correct_answer_value = Number(correct_value);
+        quiz.updinf();
+        localStorage.setItem("correct_answer_value", correct_value);
+    }
+});
+document.getElementById('infoBtni').addEventListener('click', () => {
+    let incorrect_value = prompt("Enter the value for an incorrect answer:", quiz.incorrect_answer_value);
+    if (incorrect_value !== null) {
+        quiz.incorrect_answer_value = Number(incorrect_value);
+        quiz.updinf();
+        localStorage.setItem("incorrect_answer_value", incorrect_value);
+    }
+});
+document.getElementById('hideResult').addEventListener('click', () => {
+    if (hideresult===0) {
+        var quizTracker = document.getElementById('quizTracker');
+        var currentHeight = quizTracker.offsetHeight;
+        var currentWidth = quizTracker.offsetWidth;
 
+        // Set the height to the current height
+        quizTracker.style.height = currentHeight + 'px';
+        quizTracker.style.width = currentWidth + 'px';
+        document.getElementById('results').style.display = 'none';
+        hideresult=1;
+        crtbtn.style.height='10.5rem';
+        icrtbtn.style.height='10.5rem';
+        natmbtn.style.height='10.5rem';
+        crtbtn.style.fontSize='1.5rem';
+        icrtbtn.style.fontSize='1.5rem';
+        natmbtn.style.fontSize='1.5rem';
+        inputbuttons.style.marginTop='4rem';
+        viewalldip = viewall.style.display;
+        viewall.style.display='none';
+    
+
+    } else {
+        var quizTracker = document.getElementById('quizTracker');
+        quizTracker.style.height = '';
+        quizTracker.style.width = '';
+        document.getElementById('results').style.display = '';
+        hideresult=0;
+        crtbtn.style.height='';
+        icrtbtn.style.height='';
+        natmbtn.style.height='';
+        inputbuttons.style.marginTop='1rem';
+        crtbtn.style.fontSize='';
+        icrtbtn.style.fontSize='';
+        natmbtn.style.fontSize='';
+        viewall.style.display=viewalldip;
+        quiz.updateAnswerMenu();
+    
+    }
+}
+);
+document.getElementById('undoButton').addEventListener('click', () => quiz.undo());
 document.getElementById('fullScreen').addEventListener('click', () => quiz.goFullscreen());
 document.getElementById('resetButton').addEventListener('click', () => quiz.reset());
 document.getElementById('historyButton').addEventListener('click', () => quiz.display_history());
