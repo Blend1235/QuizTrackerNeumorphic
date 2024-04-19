@@ -2,6 +2,7 @@ let fullscr = 0;
 let hideresult = 0;
 let viewall;
 let viewalldip;
+let bigbtn=0;
 let stopwatchStarted = 0;
 let stopwatchPaused = 0;
 let stopwatchRunning = 0;
@@ -187,11 +188,23 @@ class QuizTracker {
         // Determine the number of circles to display based on viewport width
     let numCircles;
     if (window.innerWidth <= 480) { // For mobile devices
-        numCircles = 3;
+        if (bigbtn===1) {
+            numCircles = 5;
+        } else {
+            numCircles = 3;
+        }
     } else if (window.innerWidth <= 768) { // For tablets
-        numCircles = 5;
+        if (bigbtn===1) {
+            numCircles = 7;
+        } else {
+            numCircles = 5;
+        }
     } else { // For desktop
-        numCircles = 6;
+        if (bigbtn===1) {
+            numCircles = 8;
+        } else {
+            numCircles = 6;
+        }
     }
 
     let start = Math.max(0, this.user_inputs.length - numCircles);
@@ -575,8 +588,13 @@ document.getElementById('answerMenuButton').addEventListener('click', () => {
     let menu = document.getElementById('ansCanal');
     if (menu.style.display === 'none') {
         menu.style.display = 'block';
+        // var barHigh = document.getElementById('headBar').style.top;
+        document.getElementById('headBar').style.top = '8.7rem';
+
     } else {
         menu.style.display = 'none';
+        // var barHigh = document.getElementById('headBar').style.top;
+        document.getElementById('headBar').style.top = '3rem';
     }
     
 });
@@ -587,8 +605,20 @@ document.getElementById('answerMenuButton').addEventListener('click', () => {
 //     document.getElementById('fullAnswerMenu').style.display = 'none';
 // });
 document.getElementById('infoBtnc').addEventListener('click', () => {
+    var isFS;
+
+    if (document.fullscreenElement != null) {
+        isFS=1;
+        console.log("isFS was set to 1");
+
+    } else {
+        isFS=0;
+        console.log("isFS was set to 0");
+
+    }
     let correct_value = prompt("Enter the value for a correct answer:", quiz.correct_answer_value);
     if (correct_value !== null) {
+        
         quiz.correct_answer_value = Number(correct_value);
         quiz.updinf();
         quiz.calculate_positive_marks();
@@ -597,9 +627,27 @@ document.getElementById('infoBtnc').addEventListener('click', () => {
         quiz.calculate_nonnegative_percentage();
         quiz.display_results();
         localStorage.setItem("correct_answer_value", correct_value);
+        
+    }
+    if (isFS === 1) {
+        setTimeout(quiz.openFullscreen,100)
+        // quiz.openFullscreen();
+        console.log("open fullscreen was called by isFS");
+
     }
 });
 document.getElementById('infoBtni').addEventListener('click', () => {
+    var isFS;
+
+    if (document.fullscreenElement != null) {
+        isFS=1;
+        console.log("isFS was set to 1");
+
+    } else {
+        isFS=0;
+        console.log("isFS was set to 0");
+
+    }
     let incorrect_value = prompt("Enter the value for an incorrect answer:", quiz.incorrect_answer_value);
     if (incorrect_value !== null) {
         quiz.incorrect_answer_value = Number(incorrect_value);
@@ -611,9 +659,16 @@ document.getElementById('infoBtni').addEventListener('click', () => {
         quiz.display_results();
         localStorage.setItem("incorrect_answer_value", incorrect_value);
     }
+    if (isFS === 1) {
+        // quiz.openFullscreen();
+        setTimeout(quiz.openFullscreen,100)
+        console.log("open full screen by isFS");
+
+    }
 });
 document.getElementById('hideResult').addEventListener('click', () => {
     if (hideresult===0) {
+        
         var quizTracker = document.getElementById('quizTracker');
         var currentHeight = quizTracker.offsetHeight;
         var currentWidth = quizTracker.offsetWidth;
@@ -623,6 +678,8 @@ document.getElementById('hideResult').addEventListener('click', () => {
         quizTracker.style.width = currentWidth + 'px';
         document.getElementById('results').style.display = 'none';
         hideresult=1;
+        bigbtn=1;
+        quiz.updateAnswerMenu();
         crtbtn.style.height='10.5rem';
         icrtbtn.style.height='10.5rem';
         natmbtn.style.height='10.5rem';
@@ -639,6 +696,8 @@ document.getElementById('hideResult').addEventListener('click', () => {
     
 
     } else {
+        bigbtn=0;
+        quiz.updateAnswerMenu();
         var quizTracker = document.getElementById('quizTracker');
         quizTracker.style.height = '';
         quizTracker.style.width = '';
