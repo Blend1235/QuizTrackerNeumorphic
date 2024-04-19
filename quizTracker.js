@@ -2,6 +2,111 @@ let fullscr = 0;
 let hideresult = 0;
 let viewall;
 let viewalldip;
+let stopwatchStarted = 0;
+let stopwatchPaused = 0;
+let stopwatchRunning = 0;
+updateStopwatch();
+    var isRunning = 0; // Add this line
+        var startTime, timer;
+        var totalPausedTime = 0; // Track cumulative paused time
+        var hours = 0, minutes = 0, seconds = 0;
+        var display = document.getElementById("timer");
+        var pressStartTime = 0;
+
+        function updateStopwatch() {
+            if (isRunning===1) {
+                document.getElementById("hr").innerText = hours.toString().padStart(2, "0");
+                document.getElementById("min").innerText = ": " + minutes.toString().padStart(2, "0");
+                document.getElementById("sec").innerText = ": " + seconds.toString().padStart(2, "0");
+            } else {
+                document.getElementById("hr").innerText = "Stopwatch";
+                document.getElementById("min").innerText = "";
+                document.getElementById("sec").innerText = "";
+            }
+        }
+
+        function startTimer() {
+            if (!timer) {
+                startTime = new Date().getTime();
+                timer = setInterval(updateTime, 1000);
+                isRunning = 1;
+                updateTime();
+                document.getElementById('timer').style.backgroundColor = 'hsl(90, 60%, 51%)';
+            }
+        }
+
+        function pauseTimer() {
+            if (timer) {
+                clearInterval(timer);
+                totalPausedTime += new Date().getTime() - startTime;
+                timer = null;
+                isRunning = 0;
+                document.getElementById('timer').style.backgroundColor = '#f7da36';
+
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timer = null;
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+            totalPausedTime = 0; // Reset cumulative paused time
+            isRunning = 0;
+            updateStopwatch();
+            document.getElementById("timer").style.backgroundColor = '';
+
+            
+        }
+
+        function updateTime() {
+            var now = new Date().getTime();
+            var elapsed = now - startTime + totalPausedTime; // Add cumulative paused time
+            seconds = Math.floor((elapsed / 1000) % 60);
+            minutes = Math.floor((elapsed / 1000 / 60) % 60);
+            hours = Math.floor(elapsed / 1000 / 60 / 60);
+            updateStopwatch();
+        }
+
+        // document.getElementById('timer').addEventListener("mousedown", function () {
+        //     pressStartTime = new Date().getTime();
+        // });
+
+        // document.getElementById('timer').addEventListener("mouseup", function () {
+        //     var pressEndTime = new Date().getTime();
+        //     var pressDuration = pressEndTime - pressStartTime;
+
+        //     if (pressDuration >= 1000) {
+        //         // Held for 2 seconds or more, reset the timer
+        //         resetTimer();
+        //     } else {
+        //         // Short press, toggle start/resume and pause
+        //         if (timer) {
+        //             pauseTimer();
+                   
+        //         } else {
+        //             startTimer();
+                    
+        //         }
+        //     }
+        // });
+        document.getElementById('timer').addEventListener("dblclick", function () {
+            resetTimer();
+        });
+        document.getElementById('timer').addEventListener("click", function () {
+            if (timer) {
+                // setTimeout(pauseTimer,250);
+                pauseTimer();
+               
+            } else {
+                // setTimeout(startTimer,250);
+                startTimer();
+                
+            }
+        });
+
+
 
 class QuizTracker {
     undo() {
@@ -554,6 +659,21 @@ document.getElementById('hideResult').addEventListener('click', () => {
     }
     }
 );
+// document.getElementById('timer').addEventListener('click', () => {
+
+//     if (stopwatchRunning===0) {
+//         startTimer();
+//     } else {
+//         pauseTimer();
+//     }
+
+// }
+// );
+// document.getElementById('timer').addEventListener('mousedown', () => {
+//     setTimeout(resetTimer, 3000); // Reset after 3 seconds (adjust as needed)
+//     startTimer();
+// });
+
 document.getElementById('undoButton').addEventListener('click', () => quiz.undo());
 document.getElementById('fullScreen').addEventListener('click', () => quiz.goFullscreen());
 document.getElementById('resetButton').addEventListener('click', () => quiz.reset());
