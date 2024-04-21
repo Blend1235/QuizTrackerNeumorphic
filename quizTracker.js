@@ -380,6 +380,7 @@ document.getElementById('headBar').style.display = 'flex';
             document.getElementById('infoBtnc').style.display = 'block';
             document.getElementById('infoBtni').style.display = 'block';
             document.getElementById('headBar').style.display = 'flex';
+            document.getElementById('controlPanel').style.right = '0.625rem';
         }
 
         
